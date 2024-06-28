@@ -10,14 +10,14 @@ const Hero = () => {
 				</h1>
 				<div className="space-y-2">
 					<p className="text-xs text-gray-600 font-semibold">
-						WHAT DO YOU WANT TO WORK WITH?
+						WHAT/WHO DO YOU WANT TO WORK WITH?
 					</p>
 					<form className={GeistMono.className}>
 						<div className="flex gap-2">
 							<input
 								type="search"
 								placeholder="Rust, Tensorflow, WebGPU, React..."
-								className="border w-full py-3 px-3 bg-gray-100 text-sm rounded-sm border-none focus:border-none"
+								className="border w-full py-3 px-3 bg-gray-200 text-sm rounded-sm border-none focus:border-none"
 							/>
 							<button className="bg-gray-900 text-sm text-gray-100 rounded-sm py-2 px-4">
 								Search

@@ -19,7 +19,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={GeistMono.className}>
-				<main className="container mx-auto max-w-3xl px-6 py-4">
+				<main className="container mx-auto max-w-2xl px-6 py-8">
 					<Header />
 					<Hero />
 					{children}

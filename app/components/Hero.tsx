@@ -5,10 +5,10 @@ const Hero = () => {
 	return (
 		<section className={GeistSans.className}>
 			<div className="py-12 space-y-20 container max-w-[85%] mx-auto">
-				<h1 className="text-5xl bold text-center">
+				<h1 className="text-5xl text-center">
 					work in open-source <br /> & get paid for it
 				</h1>
-				<div className="space-y-2">
+				<div className="space-y-1">
 					<p className="text-xs text-gray-600 font-semibold">
 						WHAT/WHO DO YOU WANT TO WORK WITH?
 					</p>
@@ -17,7 +17,7 @@ const Hero = () => {
 							<input
 								type="search"
 								placeholder="Rust, Tensorflow, WebGPU, React..."
-								className="border w-full py-3 px-3 bg-gray-200 text-sm rounded-sm border-none focus:border-none"
+								className="border w-full py-3 px-3 bg-gray-200 text-sm rounded-sm border-none focus:outline-none"
 							/>
 							<button className="bg-gray-900 text-sm text-gray-100 rounded-sm py-2 px-4">
 								Search

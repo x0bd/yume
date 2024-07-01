@@ -1,1 +1,4 @@
 -   [ ] Add that blinking green dot sign for recent jobs
+-   [ ] Add Resend Mail Support
+-   [ ] Add License
+-   [ ] Add icon library and icons to input boxes

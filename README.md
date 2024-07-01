@@ -1,1 +1,1 @@
-# Yumi - OSS Job Board
+# YUME - OSS Job Board

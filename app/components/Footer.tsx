@@ -34,7 +34,7 @@ const Footer = () => {
 						</div>
 					</form>
 				</div>
-				<div className="mx-auto max-w-[60%] container">
+				<div className="mx-auto max-w-[95%] container">
 					<Link
 						href="/"
 						target="_blank"

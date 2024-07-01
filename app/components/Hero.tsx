@@ -4,7 +4,7 @@ import { GeistSans } from "geist/font/sans";
 const Hero = () => {
 	return (
 		<section className={GeistSans.className}>
-			<div className="py-12 space-y-20 container max-w-[85%] mx-auto">
+			<div className="my-12 space-y-20 container max-w-[85%] mx-auto">
 				<h1 className="text-5xl text-center">
 					work in open-source <br /> & get paid for it
 				</h1>

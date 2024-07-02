@@ -1,11 +1,14 @@
 import Image from "next/image";
+import { TiHeart } from "react-icons/ti";
 
 const JobRow = () => {
 	return (
 		<>
 			<div className="p-3 border-2 text-gray-600 bg-gray-50 rounded shadow-sm relative">
 				{/* TODO: ADD REACT-ICONS OR LUCIDE-ICONS */}
-				<div className="absolute top-2 right-2">🖤</div>
+				<div className="absolute top-2 right-2">
+					<TiHeart />
+				</div>
 				<div className="flex grow gap-4">
 					<div className="content-center">
 						<Image

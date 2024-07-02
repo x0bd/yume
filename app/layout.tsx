@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { GeistMono } from "geist/font/mono";
-import { GeistSans } from "geist/font/sans";
-import Link from "next/link";
 import Header from "./components/Header";
-import Hero from "./components/Hero";
+import Footer from "./components/Footer";
 
 export const metadata: Metadata = {
 	title: "yume - oss developer jobs",
@@ -22,6 +20,7 @@ export default function RootLayout({
 				<main className="container mx-auto max-w-2xl px-6 py-8">
 					<Header />
 					{children}
+					{/* <Footer /> */}
 				</main>
 			</body>
 		</html>

@@ -21,10 +21,12 @@ const Header = async () => {
 					</Link>
 				)}
 				{user && (
-					<form action={async () => {
-						'use server';
-						await signOut()
-					}}>
+					<form
+						action={async () => {
+							"use server";
+							await signOut();
+						}}
+					>
 						<button
 							type="submit"
 							className="bg-gray-200 shadow-sm rounded-sm text-sm py-2 px-4"
@@ -36,6 +38,7 @@ const Header = async () => {
 
 				<Link
 					href={"/new-listing"}
+					target="_blank"
 					className="bg-gray-900 shadow-sm text-sm rounded-sm flex gap-1 items-center text-gray-100 py-2 px-4"
 				>
 					Post a job for free{" "}

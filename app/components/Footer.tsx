@@ -41,7 +41,7 @@ const Footer = () => {
 						className={GeistMono.className}
 					>
 						<p className="my-5 text-center text-xs text-gray-600 px-1 py-2 bg-inherit underline underline-offset-2">
-							design inspired by fossfox
+							huge fan of fossfox btw
 						</p>
 					</Link>
 				</div>

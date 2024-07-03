@@ -36,7 +36,7 @@ const Footer = () => {
 				</div>
 				<div className="mx-auto max-w-[95%] container">
 					<Link
-						href="/"
+						href="https://x.com/4kimov/status/1766595027407442378"
 						target="_blank"
 						className={GeistMono.className}
 					>

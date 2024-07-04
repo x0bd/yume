@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 
 export const metadata: Metadata = {
 	title: "yume - oss developer jobs",
-	description: "work in oss and get paid | simple and no BS job board",
+	description: "work in oss and get paid",
 };
 
 export default function RootLayout({
@@ -17,10 +17,10 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={GeistMono.className}>
-				<main className="container mx-auto max-w-2xl px-6 py-8">
+				<main className="container mx-auto max-w-2xl max-h-full flex flex-col justify-evenly px-6 py-8">
 					<Header />
 					{children}
-					{/* <Footer /> */}
+					<Footer />
 				</main>
 			</body>
 		</html>

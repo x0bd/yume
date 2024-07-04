@@ -1,0 +1,97 @@
+"use client";
+
+import { useState } from "react";
+import {
+	CitySelect,
+	CountrySelect,
+	StateSelect,
+} from "react-country-state-city";
+import "react-country-state-city/dist/react-country-state-city.css";
+
+export default function JobForm() {
+	const [countryId, setCountryId] = useState(0);
+	const [stateId, setStateId] = useState(0);
+
+	return (
+		<form
+			className="p-2 mt-8 flex flex-col gap-3 rounded bg-gray-200 "
+			action=""
+		>
+			<h3 className="text-sm font-black">New Job Post</h3>
+			<input
+				className="focus:outline-none text-gray-600 rounded w-full p-3 text-sm border-none"
+				placeholder="Job Title"
+			/>
+			<div className="grid md:lg:grid-cols-2 gap-2">
+				<div className="flex gap-3">
+					<label className="text-sm text-gray-800" htmlFor="location">
+						Remote?
+					</label>
+					<select
+						name="location"
+						id="location"
+						defaultValue="onsite"
+						className="rounded text-sm text-gray-600"
+					>
+						<option value="onsite">On-Site</option>
+						<option value="hybrid">Hybrid-Remote</option>
+						<option value="remote">Fully Remote</option>
+					</select>
+				</div>
+				<div className="flex gap-3">
+					<label className="text-sm text-gray-800" htmlFor="location">
+						Full-time?
+					</label>
+					<select
+						name="availability"
+						id="availability"
+						defaultValue="free"
+						className="rounded text-sm text-gray-600"
+					>
+						<option value="free">freelancer</option>
+						<option value="part">Part-time</option>
+						<option value="full">Fulltime</option>
+					</select>
+				</div>
+			</div>
+			<div className="space-y-1">
+				<h3 className="text-sm text-gray-800">Salary (per year)</h3>
+				<input
+					className="border p-1 rounded text-sm text-gray-600 focus:outline-none border-none"
+					type="text"
+					placeholder="$"
+				/>
+			</div>
+			<div>
+				<h6 className="text-sm">Location:</h6>
+				<div className="flex flex-col lg:md:flex-row gap-2">
+					<CountrySelect
+						onChange={(e) => {
+							setCountryId(e.id);
+						}}
+						placeHolder="Select Country"
+					/>
+					<StateSelect
+						countryid={countryId}
+						onChange={(e) => {
+							setStateId(e.id);
+						}}
+						placeHolder="Select State"
+					/>
+					<CitySelect
+						countryid={countryId}
+						stateid={stateId}
+						onChange={(e) => {
+							console.log(e);
+						}}
+						placeHolder="Select City"
+					/>
+				</div>
+			</div>
+			<textarea
+				className="p-3 focus:outline-none text-gray-600 rounded-sm text-sm w-full border-none"
+				placeholder="Job Description..."
+			/>
+		</form>
+	);
+}

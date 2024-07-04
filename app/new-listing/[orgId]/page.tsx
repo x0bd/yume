@@ -1,7 +1,6 @@
+import JobForm from "@/app/components/JobForm";
 import { getUser } from "@workos-inc/authkit-nextjs";
 import { WorkOS } from "@workos-inc/node";
-import "@radix-ui/themes/styles.css";
-import { TextField, Theme } from "@radix-ui/themes";
 
 type PageProps = {
 	params: {
@@ -28,11 +27,5 @@ export default async function NewListingPageForOrgPage(props: PageProps) {
 		return "no access";
 	}
 
-	return (
-		<Theme>
-			<form className="container mt-8" action="">
-				<TextField.Root placeholder="Job Title" />
-			</form>
-		</Theme>
-	);
+	return <JobForm />;
 }

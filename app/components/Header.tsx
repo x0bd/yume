@@ -41,7 +41,7 @@ const Header = async () => {
 					target="_blank"
 					className="bg-gray-900 shadow-sm text-sm rounded-sm flex gap-1 items-center text-gray-100 py-2 px-4"
 				>
-					Post a job for free{" "}
+					Post a job
 					<span>
 						<GoArrowUpRight />
 					</span>

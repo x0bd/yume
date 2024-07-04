@@ -98,7 +98,7 @@ export default function JobForm() {
 			/>
 
 			<div className="flex lg:md:flex-row flex-col lg:md:gap-2">
-				<div className="flex flex-col w-2/3 gap-2">
+				<div className="flex flex-col w-3/4 gap-2">
 					<h3 className="text-sm font-medium text-gray-800">
 						Contact Person
 					</h3>
@@ -131,6 +131,13 @@ export default function JobForm() {
 						<RiImage2Line size={40} />
 					</div>
 				</div>
+			</div>
+
+			<div className="mt-2 flex items-center justify-between">
+				<div></div>
+				<button className="bg-gray-900 shadow-sm text-sm rounded-sm flex gap-1 items-center text-gray-100 py-2 px-10">
+					submit
+				</button>
 			</div>
 		</form>
 	);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
 	CitySelect,
 	CountrySelect,
@@ -10,9 +10,41 @@ import "react-country-state-city/dist/react-country-state-city.css";
 import { RiImage2Line } from "react-icons/ri";
 import { MdOutlinePerson } from "react-icons/md";
 
+import supabase from "../../supabase";
+import { nanoid } from "nanoid";
+
 export default function JobForm() {
 	const [countryId, setCountryId] = useState(0);
 	const [stateId, setStateId] = useState(0);
+
+	const [selectedFile, setSelectedFile] = useState<File | undefined>(
+		undefined
+	);
+	const [uploaded, setUploaded] = useState<string | null>(null);
+	const inputRef = useRef(null);
+
+	const handleUpload = async () => {
+		if (selectedFile) {
+			const filename = nanoid();
+
+			const { data, error } = await supabase.storage
+				.from("images")
+				.upload(
+					`${filename}.${selectedFile.name.split(".").pop()}`,
+					selectedFile
+				);
+
+			if (error) {
+				console.log("Error uploading file:", error.message);
+			} else {
+				const { data: file } = await supabase.storage
+					.from("images")
+					.getPublicUrl(data?.path);
+				console.log(file);
+				setUploaded(file?.publicUrl);
+			}
+		}
+	};
 
 	return (
 		<form
@@ -125,11 +157,45 @@ export default function JobForm() {
 						</div>
 					</div>
 				</div>
-				<div className="flex flex-col gap-2">
-					<h3 className="text-sm text-gray-800">Job Icon</h3>
+			</div>
+			<div className="flex flex-col gap-2">
+				<h3 className="text-sm text-gray-800">Job Icon</h3>
+				<input
+					type="file"
+					ref={inputRef}
+					onChange={(e) => {
+						setSelectedFile(e?.target?.files?.[0]);
+					}}
+					className="bg-gray-100 size-24 rounded cursor-pointer flex items-center justify-center"
+				></input>
+				<button type="button" onClick={handleUpload}>
+					Upload File
+				</button>
+			</div>
+
+			<div className="flex gap-2">
+				<div>
 					<div className="bg-gray-100 size-24 rounded cursor-pointer flex items-center justify-center">
 						<RiImage2Line size={40} />
 					</div>
+					<h1 className=""></h1>
+				</div>
+				<div className="flex flex-col grow w-auto gap-1">
+					<input
+						type="text"
+						placeholder="Jane Doe"
+						className="border w-full p-1 rounded text-sm text-gray-600 focus:outline-none border-none"
+					/>
+					<input
+						type="text"
+						placeholder="Phone"
+						className="border p-1 w-full rounded text-sm text-gray-600 focus:outline-none border-none"
+					/>
+					<input
+						type="text"
+						placeholder="Email"
+						className="border p-1 w-full rounded text-sm text-gray-600 focus:outline-none border-none"
+					/>
 				</div>
 			</div>
 

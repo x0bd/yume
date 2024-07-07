@@ -14,19 +14,17 @@ import { GeistMono } from "geist/font/mono";
 export default function JobForm() {
 	const [countryId, setCountryId] = useState(0);
 	const [stateId, setStateId] = useState(0);
-
 	const [selectedProfile, setSelectedProfile] = useState<File | undefined>(
 		undefined
 	);
 	const [selectedJobProfile, setSelectedJobProfile] = useState<
 		File | undefined
 	>(undefined);
-	const [uploadedJobProfile, setUploadedJobProfile] = useState<string | null>(
-		null
-	);
-	const [uploadedProfile, setUploadedProfile] = useState<string | null>(null);
+	const [uploadedJobProfile, setUploadedJobProfile] = useState("");
+	const [uploadedProfile, setUploadedProfile] = useState("");
 	const inputRef = useRef(null);
 
+	// TODO: Create a single function for this skill issues innit?
 	const handleProfileUpload = async () => {
 		if (selectedProfile) {
 			const filename = nanoid();
@@ -46,6 +44,7 @@ export default function JobForm() {
 					.getPublicUrl(data?.path);
 				console.log(file);
 				setUploadedProfile(file?.publicUrl);
+				return file.publicUrl;
 			}
 		}
 	};
@@ -69,6 +68,7 @@ export default function JobForm() {
 					.getPublicUrl(data?.path);
 				console.log(file);
 				setUploadedJobProfile(file?.publicUrl);
+				return file.publicUrl;
 			}
 		}
 	};
@@ -192,9 +192,15 @@ export default function JobForm() {
 					/>
 				</div>
 			</div>
-			<div className="grid lg:md:grid-cols-3 grid-cols-1">
+			{/* TODO: Extract into a single component*/}
+			<div className="grid lg:md:grid-cols-2 grid-cols-1">
 				<div className="flex flex-col mt-3 gap-2 items-start">
 					<h3 className="text-sm  text-gray-800">Contact Profile:</h3>
+					<input
+						type="hidden"
+						value={uploadedProfile}
+						name={uploadedProfile}
+					/>
 					{uploadedProfile ? (
 						<img
 							src={uploadedProfile}
@@ -223,6 +229,11 @@ export default function JobForm() {
 				</div>
 				<div className="flex flex-col mt-3 gap-2 items-start">
 					<h3 className="text-sm  text-gray-800">Job Icon:</h3>
+					<input
+						type="hidden"
+						value={uploadedJobProfile}
+						name={uploadedJobProfile}
+					/>
 					{uploadedJobProfile ? (
 						<img
 							src={uploadedJobProfile}

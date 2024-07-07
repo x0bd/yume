@@ -7,31 +7,35 @@ import {
 	StateSelect,
 } from "react-country-state-city";
 import "react-country-state-city/dist/react-country-state-city.css";
-import { RiImage2Line } from "react-icons/ri";
-import { MdOutlinePerson } from "react-icons/md";
-
 import supabase from "../../supabase";
 import { nanoid } from "nanoid";
+import { GeistMono } from "geist/font/mono";
 
 export default function JobForm() {
 	const [countryId, setCountryId] = useState(0);
 	const [stateId, setStateId] = useState(0);
 
-	const [selectedFile, setSelectedFile] = useState<File | undefined>(
+	const [selectedProfile, setSelectedProfile] = useState<File | undefined>(
 		undefined
 	);
-	const [uploaded, setUploaded] = useState<string | null>(null);
+	const [selectedJobProfile, setSelectedJobProfile] = useState<
+		File | undefined
+	>(undefined);
+	const [uploadedJobProfile, setUploadedJobProfile] = useState<string | null>(
+		null
+	);
+	const [uploadedProfile, setUploadedProfile] = useState<string | null>(null);
 	const inputRef = useRef(null);
 
-	const handleUpload = async () => {
-		if (selectedFile) {
+	const handleProfileUpload = async () => {
+		if (selectedProfile) {
 			const filename = nanoid();
 
 			const { data, error } = await supabase.storage
 				.from("images")
 				.upload(
-					`${filename}.${selectedFile.name.split(".").pop()}`,
-					selectedFile
+					`${filename}.${selectedProfile.name.split(".").pop()}`,
+					selectedProfile
 				);
 
 			if (error) {
@@ -41,32 +45,58 @@ export default function JobForm() {
 					.from("images")
 					.getPublicUrl(data?.path);
 				console.log(file);
-				setUploaded(file?.publicUrl);
+				setUploadedProfile(file?.publicUrl);
+			}
+		}
+	};
+
+	const handleJobProfileUpload = async () => {
+		if (selectedJobProfile) {
+			const filename = nanoid();
+
+			const { data, error } = await supabase.storage
+				.from("images")
+				.upload(
+					`${filename}.${selectedJobProfile.name.split(".").pop()}`,
+					selectedJobProfile
+				);
+
+			if (error) {
+				console.log("Error uploading file:", error.message);
+			} else {
+				const { data: file } = await supabase.storage
+					.from("images")
+					.getPublicUrl(data?.path);
+				console.log(file);
+				setUploadedJobProfile(file?.publicUrl);
 			}
 		}
 	};
 
 	return (
 		<form
-			className="p-3 mt-8 flex flex-col gap-3 rounded bg-gray-200 "
+			className="p-3 mt-8 flex flex-col gap-3 rounded border-2 border-gray-600"
 			action=""
 		>
 			<h3 className="text-sm font-black">New Job Post</h3>
 			<input
-				className="focus:outline-none text-gray-600 rounded w-full p-3 text-sm border-none"
+				className="focus:border-gray-600 text-gray-600 rounded w-full p-3 text-sm border-2 border-gray-400"
 				placeholder="Job Title"
 			/>
 
 			<div className="grid md:lg:grid-cols-2 gap-2">
 				<div className="flex gap-3">
-					<label className="text-sm text-gray-800" htmlFor="location">
+					<label
+						className="text-sm text-gray-800 "
+						htmlFor="location"
+					>
 						Remote?
 					</label>
 					<select
 						name="location"
 						id="location"
 						defaultValue="onsite"
-						className="rounded text-sm text-gray-600"
+						className="rounded text-sm border-2 border-gray-400 text-gray-400"
 					>
 						<option value="onsite">On-Site</option>
 						<option value="hybrid">Hybrid-Remote</option>
@@ -74,14 +104,17 @@ export default function JobForm() {
 					</select>
 				</div>
 				<div className="flex gap-3">
-					<label className="text-sm text-gray-800" htmlFor="location">
+					<label
+						className="text-sm  text-gray-800"
+						htmlFor="location"
+					>
 						Full-time?
 					</label>
 					<select
 						name="availability"
 						id="availability"
 						defaultValue="free"
-						className="rounded text-sm text-gray-600"
+						className="rounded border-2 border-gray-400 text-sm text-gray-400"
 					>
 						<option value="free">freelancer</option>
 						<option value="part">Part-time</option>
@@ -92,7 +125,7 @@ export default function JobForm() {
 			<div className="space-y-1">
 				<h3 className="text-sm text-gray-800">Salary (per year)</h3>
 				<input
-					className="border p-1 rounded text-sm text-gray-600 focus:outline-none border-none"
+					className="p-1 rounded text-sm border-2 border-gray-400 text-gray-400 focus:border-gray-600"
 					type="text"
 					placeholder="$"
 				/>
@@ -105,6 +138,8 @@ export default function JobForm() {
 							setCountryId(e.id);
 						}}
 						placeHolder="Select Country"
+						inputClassName={GeistMono.className}
+						containerClassName="rounded border-gray-400 text-sm"
 					/>
 					<StateSelect
 						countryid={countryId}
@@ -112,6 +147,8 @@ export default function JobForm() {
 							setStateId(e.id);
 						}}
 						placeHolder="Select State"
+						containerClassName="rounded text-sm"
+						inputClassName={GeistMono.className}
 					/>
 					<CitySelect
 						countryid={countryId}
@@ -120,82 +157,97 @@ export default function JobForm() {
 							console.log(e);
 						}}
 						placeHolder="Select City"
+						containerClassName="rounded text-sm"
+						inputClassName={GeistMono.className}
 					/>
 				</div>
 			</div>
 
 			<textarea
-				className="p-3 h-56 focus:outline-none text-gray-600 rounded-sm text-sm w-full border-none"
+				className="p-3 h-56 focus:border-gray-600 text-gray-400 rounded-sm text-sm w-full border-2 border-gray-400"
 				placeholder="Job Description..."
 			/>
 
 			<div className="flex lg:md:flex-row flex-col lg:md:gap-2">
-				<div className="flex flex-col w-3/4 gap-2">
-					<h3 className="text-sm font-medium text-gray-800">
-						Contact Person
-					</h3>
-					<div className="flex gap-2 w-full grow items-center">
-						<div className="bg-gray-100 size-24 rounded cursor-pointer  flex items-center justify-center">
-							<MdOutlinePerson size={40} />
-						</div>
-						<div className="flex flex-col grow w-auto gap-1">
-							<input
-								type="text"
-								placeholder="Jane Doe"
-								className="border w-full p-1 rounded text-sm text-gray-600 focus:outline-none border-none"
-							/>
-							<input
-								type="text"
-								placeholder="Phone"
-								className="border p-1 w-full rounded text-sm text-gray-600 focus:outline-none border-none"
-							/>
-							<input
-								type="text"
-								placeholder="Email"
-								className="border p-1 w-full rounded text-sm text-gray-600 focus:outline-none border-none"
-							/>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div className="flex flex-col gap-2">
-				<h3 className="text-sm text-gray-800">Job Icon</h3>
-				<input
-					type="file"
-					ref={inputRef}
-					onChange={(e) => {
-						setSelectedFile(e?.target?.files?.[0]);
-					}}
-					className="bg-gray-100 size-24 rounded cursor-pointer flex items-center justify-center"
-				></input>
-				<button type="button" onClick={handleUpload}>
-					Upload File
-				</button>
+				<div className="flex flex-col w-3/4 gap-2"></div>
 			</div>
 
+			<h3 className="text-sm text-gray-800">Contact Info: </h3>
 			<div className="flex gap-2">
-				<div>
-					<div className="bg-gray-100 size-24 rounded cursor-pointer flex items-center justify-center">
-						<RiImage2Line size={40} />
-					</div>
-					<h1 className=""></h1>
-				</div>
 				<div className="flex flex-col grow w-auto gap-1">
 					<input
 						type="text"
-						placeholder="Jane Doe"
-						className="border w-full p-1 rounded text-sm text-gray-600 focus:outline-none border-none"
+						placeholder="Name"
+						className="w-full p-2 border-2 border-gray-400 rounded text-sm text-gray-600 focus:border-gray-600"
 					/>
 					<input
 						type="text"
 						placeholder="Phone"
-						className="border p-1 w-full rounded text-sm text-gray-600 focus:outline-none border-none"
+						className="p-2 w-full border-2 border-gray-400 rounded text-sm text-gray-600 focus:border-gray-600"
 					/>
 					<input
 						type="text"
 						placeholder="Email"
-						className="border p-1 w-full rounded text-sm text-gray-600 focus:outline-none border-none"
+						className="p-2 w-full border-2 border-gray-400 rounded text-sm text-gray-600 focus:border-gray-600"
 					/>
+				</div>
+			</div>
+			<div className="grid lg:md:grid-cols-3 grid-cols-1">
+				<div className="flex flex-col mt-3 gap-2 items-start">
+					<h3 className="text-sm  text-gray-800">Contact Profile:</h3>
+					{uploadedProfile ? (
+						<img
+							src={uploadedProfile}
+							className="h-20 rounded w-20"
+						/>
+					) : (
+						<input
+							className="text-sm"
+							placeholder="Select a file"
+							type="file"
+							ref={inputRef}
+							onChange={(e) => {
+								setSelectedProfile(e?.target?.files?.[0]);
+							}}
+						></input>
+					)}
+					<div>
+						<button
+							className="bg-gray-200 shadow-sm border-gray-900 rounded-sm text-xs py-1 px-2"
+							type="button"
+							onClick={handleProfileUpload}
+						>
+							Upload File
+						</button>
+					</div>
+				</div>
+				<div className="flex flex-col mt-3 gap-2 items-start">
+					<h3 className="text-sm  text-gray-800">Job Icon:</h3>
+					{uploadedJobProfile ? (
+						<img
+							src={uploadedJobProfile}
+							className="h-20 rounded w-20"
+						/>
+					) : (
+						<input
+							className="text-sm"
+							placeholder="Select a file"
+							type="file"
+							ref={inputRef}
+							onChange={(e) => {
+								setSelectedJobProfile(e?.target?.files?.[0]);
+							}}
+						></input>
+					)}
+					<div>
+						<button
+							className="bg-gray-200 shadow-sm border-gray-900 rounded-sm text-xs py-1 px-2"
+							type="button"
+							onClick={handleJobProfileUpload}
+						>
+							Upload File
+						</button>
+					</div>
 				</div>
 			</div>
 

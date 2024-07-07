@@ -24,7 +24,7 @@ export default function JobForm() {
 	const [uploadedProfile, setUploadedProfile] = useState("");
 	const inputRef = useRef(null);
 
-	// TODO: Create a single function for this skill issues innit?
+	// TODO: Create a single function for this, skill issues innit?
 	const handleProfileUpload = async () => {
 		if (selectedProfile) {
 			const filename = nanoid();
@@ -134,7 +134,7 @@ export default function JobForm() {
 				<h6 className="text-sm">Location:</h6>
 				<div className="flex flex-col lg:md:flex-row gap-2">
 					<CountrySelect
-						onChange={(e) => {
+						onChange={(e: any) => {
 							setCountryId(e.id);
 						}}
 						placeHolder="Select Country"
@@ -143,7 +143,7 @@ export default function JobForm() {
 					/>
 					<StateSelect
 						countryid={countryId}
-						onChange={(e) => {
+						onChange={(e: any) => {
 							setStateId(e.id);
 						}}
 						placeHolder="Select State"
@@ -153,7 +153,7 @@ export default function JobForm() {
 					<CitySelect
 						countryid={countryId}
 						stateid={stateId}
-						onChange={(e) => {
+						onChange={(e: any) => {
 							console.log(e);
 						}}
 						placeHolder="Select City"
